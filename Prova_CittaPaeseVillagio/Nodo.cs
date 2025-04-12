@@ -40,19 +40,19 @@ namespace Prova_CittaPaeseVillagio
         public Arco[] Archi { get { return archi.ToArray(); } }
 
         // crea arco e aggiungi alla lista
-        public void add_arco(Nodo nx, int metrica)
+        public void AddArco(Nodo nx, int metrica)
         {
             archi.Add(new Arco(nx, metrica));
         }
 
         // passa arco e aggiungi alla lista
-        public void add_arco(Arco a)
+        public void AddArco(Arco a)
         {
             archi.Add(a);
         }
 
         // stampa
-        public string stampa()
+        public string Stampa()
         {
             string s = nome+"\n" ;
 
@@ -63,8 +63,8 @@ namespace Prova_CittaPaeseVillagio
 
             return s+"\n";
         }
-
-        public void raggiungibile(ref Nodo[] precedenti,Nodo[] arr, ref int[] metriche, ref bool[] percorsi , int pos) 
+        // controlla se nodo1 puo' raggiungere nodo2
+        public void Raggiunggibile(ref Nodo[] precedenti,Nodo[] arr, ref int[] metriche, ref bool[] percorsi, int pos) 
         {
             percorsi[pos] = true;
             
@@ -79,17 +79,18 @@ namespace Prova_CittaPaeseVillagio
                     }
                 }
             }
-            if (lower(metriche,percorsi,ref pos))
-            {
-                arr[pos].raggiungibile(ref precedenti,arr,ref metriche,ref percorsi,pos);
-            }
-            
 
+            if (Lower(metriche,percorsi,ref pos))
+            {
+                arr[pos].Raggiunggibile(ref precedenti,arr,ref metriche,ref percorsi,pos);
+            }
         }
-        public bool lower(int[] metriche,bool[] percorsi, ref int pos)
+
+        public bool Lower(int[] metriche,bool[] percorsi, ref int pos)
         {
             bool temp = false;
-            int val=int.MaxValue-1;
+            int val = int.MaxValue-1;
+
             for (int i = 0; i < metriche.Length; i++) 
             {
                 if (val > metriche[i] && percorsi[i]==false )
@@ -100,8 +101,8 @@ namespace Prova_CittaPaeseVillagio
                     temp = true;
                 }
             }
-            return temp;
 
+            return temp;
         }   
 
         

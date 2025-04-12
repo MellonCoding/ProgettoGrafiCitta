@@ -17,12 +17,14 @@ namespace Prova_CittaPaeseVillagio
             Nodi = new List<Nodo>();
         }
 
+        // get di nodi to array
         public Nodo[] arrNodi  
         { 
             get { return Nodi.ToArray(); }
         }
 
-        public int findPos(Nodo nodo) 
+        // trova la posizione del nodo passato trammite l'ID e la ritorna
+        public int FindPosizione(Nodo nodo) 
         {
             for (int i = 0; i < Nodi.Count; i++)
             {
@@ -35,41 +37,43 @@ namespace Prova_CittaPaeseVillagio
         }
 
         // passa nodo e aggiungi la lista
-        public void Add_Nodo(Nodo nodo)
+        public void AddNodo(Nodo nodo)
         {
             Nodi.Add(nodo);
         }
         // crea nodo e aggiungi alla lista
-        public void Add_Nodo(string nome,int numeroAbitanti)
+        public void AddNodo(string nome,int numeroAbitanti)
         {
             Nodi.Add(new Nodo(nome, numeroAbitanti));
         }
-
-        // aggiunge 
-        public void Add_Arco_bi(int nodoPartenza, int nodoArrivo, int metrica)
-        {
-            Add_Arco(nodoArrivo, nodoPartenza, metrica);
-            Add_Arco(nodoPartenza, nodoArrivo, metrica);
-        }
-
-        public void Add_Arco(int partenza, int arrivo, int metrica)
+        // crea arco e aggiungi alla lista del nodo in posizione "partenza"
+        public void AddArco(int partenza, int arrivo, int metrica)
         {
             Arco arco = new Arco(Nodi[arrivo], metrica);
-            Nodi[partenza].add_arco(arco);
+            Nodi[partenza].AddArco(arco);
         }
 
+        // aggiunge un arco bidirezionale (da nodo1 a nodo 2 e viceversa)
+        public void AddArcoBidirezionale(int nodoPartenza, int nodoArrivo, int metrica)
+        {
+            AddArco(nodoArrivo, nodoPartenza, metrica);
+            AddArco(nodoPartenza, nodoArrivo, metrica);
+        }
 
+        // stampa utilizzata 
         public string stampaNodi()
         {
             string s = "";
+
             for (int i = 0; i < Nodi.Count; i++)
             {
-                s=s+Nodi[i].stampa();
+                s=s+Nodi[i].Stampa();
             }
+            
             return s;
         }
 
-        public int raggiungibile(int posizionePartenza,int posizioneFinale)
+        public int Raggiungibile(int posizionePartenza,int posizioneFinale)
         {
             bool[] percorsi = new bool[Nodi.Count];
             int[] metriche = new int[Nodi.Count];
@@ -84,12 +88,12 @@ namespace Prova_CittaPaeseVillagio
 
             metriche[posizionePartenza] = 0;
 
-            Nodi[posizionePartenza].raggiungibile(ref precedenti,Nodi.ToArray(),ref metriche,ref percorsi,posizionePartenza);
+            Nodi[posizionePartenza].Raggiunggibile(ref precedenti,Nodi.ToArray(),ref metriche,ref percorsi,posizionePartenza);
 
             return metriche[posizioneFinale];
         }
 
-        public string[] get_lista() 
+        public string[] GetLista() 
         {
             string[] nomi = new string[Nodi.Count];
 
