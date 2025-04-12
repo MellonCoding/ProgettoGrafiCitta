@@ -44,34 +44,24 @@ namespace Prova_CittaPaeseVillagio
         {
             archi.Add(new Arco(nx, metrica));
         }
+
         // passa arco e aggiungi alla lista
         public void add_arco(Arco a)
         {
             archi.Add(a);
         }
+
         // stampa
         public string stampa()
         {
             string s = nome+"\n" ;
+
             for (int i = 0; i < archi.Count; i++)
             {
                 s = s + archi[i].stampa();
             }
-            return s+"\n";
-        }
 
-        public void matrice(string[,] matrice, int pos)
-        {
-            for (int j = 0; j < archi.Count; j++)
-            {
-                for (int i = 1; i < matrice.GetLength(1); i++)
-                {
-                    if (matrice[0, i] == archi[j].Nome)
-                    {
-                        matrice[pos + 1, i] = archi[j].Metrica + "";
-                    }
-                }
-            }
+            return s+"\n";
         }
 
         public void raggiungibile(ref Nodo[] precedenti,Nodo[] arr, ref int[] metriche, ref bool[] percorsi , int pos) 

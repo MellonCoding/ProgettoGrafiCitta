@@ -100,39 +100,5 @@ namespace Prova_CittaPaeseVillagio
 
             return nomi;
         }
-
-        public string[,] get_matrice()
-        {
-            string[,] matrice = new string[Nodi.Count + 1, Nodi.Count + 1];
-            matrice[0, 0] = " ";
-            for (int i = 0; i < Nodi.Count(); i++)
-            {
-                matrice[0, i + 1] = Nodi[i].Nome;
-                matrice[i + 1, 0] = Nodi[i].Nome;
-                Nodi[i].matrice(matrice, i);
-            }
-            stampa_matrice(matrice);
-            return matrice;
-        }
-        private void stampa_matrice(string[,] matrice)
-        {
-            for (int i = 0; i < matrice.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrice.GetLength(1); j++)
-                {
-                    if (matrice[i, j] == null)
-                    {
-                        Console.Write("   ");
-                    }
-                    else
-                    {
-                        Console.Write(" " + matrice[i, j] + " ");
-                    }
-                }
-
-                Console.WriteLine();
-                Console.WriteLine();
-            }
-        }
     }
 }
