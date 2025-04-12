@@ -45,7 +45,14 @@ namespace Prova_CittaPaeseVillagio
 
         private void btt_add_arco_Click(object sender, EventArgs e)
         {
-            gesore.AddArcoBidirezionale(cmb_partenza.SelectedIndex, cmb_arrivo.SelectedIndex, int.Parse(txb_metrica_nodo.Text));
+            if (cmb_partenza.SelectedIndex != cmb_arrivo.SelectedIndex)
+            {
+                gesore.AddArcoBidirezionale(cmb_partenza.SelectedIndex, cmb_arrivo.SelectedIndex, int.Parse(txb_metrica_nodo.Text));
+            }
+            else
+            {
+                MessageBox.Show("strada inutile");
+            }
         }
 
         private void set_cmb()
@@ -74,7 +81,14 @@ namespace Prova_CittaPaeseVillagio
             Graphics g = p.CreateGraphics();
             Pen pen = new Pen(Color.Black, 5);
             pen.StartCap = LineCap.ArrowAnchor;
-            buttons.Clear(); // <- qui? 
+
+            // eliminare dal form i bottoni presenti in quella lista
+            foreach (var button in buttons)
+            {
+                this.Controls.Remove(button); // Rimuove il bottone dal form
+                button.Dispose(); // Libera le risorse del bottone (opzionale ma buona pratica)
+            }
+            buttons.Clear(); // Svuota la lista
 
             Point p1 = new Point();
             Point p2 = new Point();

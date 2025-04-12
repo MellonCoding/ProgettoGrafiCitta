@@ -63,6 +63,7 @@ namespace Prova_CittaPaeseVillagio
 
             return s+"\n";
         }
+
         // controlla se nodo1 puo' raggiungere nodo2
         public void Raggiunggibile(ref Nodo[] precedenti,Nodo[] arr, ref int[] metriche, ref bool[] percorsi, int pos) 
         {

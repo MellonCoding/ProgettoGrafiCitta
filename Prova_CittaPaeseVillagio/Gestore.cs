@@ -56,9 +56,21 @@ namespace Prova_CittaPaeseVillagio
         // aggiunge un arco bidirezionale (da nodo1 a nodo 2 e viceversa)
         public void AddArcoBidirezionale(int nodoPartenza, int nodoArrivo, int metrica)
         {
-            AddArco(nodoArrivo, nodoPartenza, metrica);
-            AddArco(nodoPartenza, nodoArrivo, metrica);
+            // Controlla se esiste già un arco tra i due nodi, per sicurezza l'ho fatto 2 volte ma non servirebbe
+            bool esisteArco1 = Nodi[nodoPartenza].Archi.Any(a => a.Next == Nodi[nodoArrivo]);
+            bool esisteArco2 = Nodi[nodoArrivo].Archi.Any(a => a.Next == Nodi[nodoPartenza]);
+
+            if (!esisteArco1 && !esisteArco2)
+            {
+                AddArco(nodoArrivo, nodoPartenza, metrica);
+                AddArco(nodoPartenza, nodoArrivo, metrica);
+            }
+            else 
+            {
+                MessageBox.Show("percorso gia' esistente");
+            }
         }
+
 
         // stampa utilizzata 
         public string stampaNodi()
