@@ -25,36 +25,41 @@ namespace Prova_CittaPaeseVillagio
 
         private void btt_add_nodo_Click(object sender, EventArgs e)
         {
-
-            //gs.Add_Nodo(txb_nome_nodo.Text);
-
             switch (cmb_type.SelectedIndex)
             {
                 case 0: //Paese
-                    gesore.Add_Nodo(new Paese(txb_nome_nodo.Text, int.Parse(txt_n_abi.Text)));
+                    gesore.AddNodo(new Paese(txb_nome_nodo.Text, int.Parse(txt_n_abi.Text)));
                     break;
                 case 1: //Citta
-                    gesore.Add_Nodo(new Citta(txb_nome_nodo.Text, int.Parse(txt_n_abi.Text)));
+                    gesore.AddNodo(new Citta(txb_nome_nodo.Text, int.Parse(txt_n_abi.Text)));
                     break;
                 case 2: //Villagio
-                    gesore.Add_Nodo(new Villagio(txb_nome_nodo.Text, int.Parse(txt_n_abi.Text)));
+                    gesore.AddNodo(new Villagio(txb_nome_nodo.Text, int.Parse(txt_n_abi.Text)));
                     break;
                 default:
                     break;
             }
+
             set_cmb();
         }
 
         private void btt_add_arco_Click(object sender, EventArgs e)
         {
-            gesore.Add_Arco_bi(cmb_partenza.SelectedIndex, cmb_arrivo.SelectedIndex, int.Parse(txb_metrica_nodo.Text));
+            if (cmb_partenza.SelectedIndex != cmb_arrivo.SelectedIndex)
+            {
+                gesore.AddArcoBidirezionale(cmb_partenza.SelectedIndex, cmb_arrivo.SelectedIndex, int.Parse(txb_metrica_nodo.Text));
+            }
+            else
+            {
+                MessageBox.Show("strada inutile");
+            }
         }
 
         private void set_cmb()
         {
             string[] nomi;
 
-            nomi = gesore.get_lista();
+            nomi = gesore.GetLista();
 
             cmb_arrivo.Items.Clear();
             cmb_partenza.Items.Clear();
@@ -76,7 +81,14 @@ namespace Prova_CittaPaeseVillagio
             Graphics g = p.CreateGraphics();
             Pen pen = new Pen(Color.Black, 5);
             pen.StartCap = LineCap.ArrowAnchor;
-            buttons.Clear(); // <- qui? 
+
+            // eliminare dal form i bottoni presenti in quella lista
+            foreach (var button in buttons)
+            {
+                this.Controls.Remove(button); // Rimuove il bottone dal form
+                button.Dispose(); // Libera le risorse del bottone (opzionale ma buona pratica)
+            }
+            buttons.Clear(); // Svuota la lista
 
             Point p1 = new Point();
             Point p2 = new Point();
@@ -91,10 +103,10 @@ namespace Prova_CittaPaeseVillagio
                 addbtt(p1.X, p1.Y, gesore.arrNodi[c].Nome);
                 c++;
             }
+
             MessageBox.Show(gesore.stampaNodi());
+            
             g.DrawLine(pen, 1, 1, 50, 50);
-
-
 
             g.Clear(p.BackColor);
 
@@ -105,12 +117,10 @@ namespace Prova_CittaPaeseVillagio
                     p1.X = buttons[i].Location.X - p.Location.X + 20;
                     p1.Y = buttons[i].Location.Y - p.Location.Y + 20;
 
-                    p2.X = buttons[gesore.findPos(gesore.arrNodi[i].Archi[j].Next)].Location.X - p.Location.X + 20;
-                    p2.Y = buttons[gesore.findPos(gesore.arrNodi[i].Archi[j].Next)].Location.Y - p.Location.Y + 20;
+                    p2.X = buttons[gesore.FindPosizione(gesore.arrNodi[i].Archi[j].Next)].Location.X - p.Location.X + 20;
+                    p2.Y = buttons[gesore.FindPosizione(gesore.arrNodi[i].Archi[j].Next)].Location.Y - p.Location.Y + 20;
 
                     g.DrawLine(pen, p1, p2);
-
-
                 }
             }
         }
@@ -129,54 +139,34 @@ namespace Prova_CittaPaeseVillagio
             buttons.Add(myButton);
         }
 
-        private void p_Paint(object sender, PaintEventArgs e)
-        {
-
-            //Graphics g = e.Graphics;
-            //Pen pen = new Pen(Color.Black, 3);
-
-            //Point p1 = new Point();
-            //Point p2 = new Point();
-
-            //g.Clear(p.BackColor);
-
-            //for (int i = 0; i < buttons.Count; i++)
-            //{
-            //    for (int j = 0; j < gs.Arr_Nodi[i].arcos.Length; j++)
-            //    {
-            //        p1.X = buttons[i].Location.X - p.Location.X;
-            //        p1.Y = buttons[i].Location.Y - p.Location.Y;
-
-            //        p2.X = buttons[gs.findPos(gs.Arr_Nodi[i].arcos[j].Next)].Location.X - p.Location.X;
-            //        p2.Y = buttons[gs.findPos(gs.Arr_Nodi[i].arcos[j].Next)].Location.Y - p.Location.Y;
-
-            //        g.DrawLine(pen, p1, p2);
-            //    }
-            //}
-        }
-
-        private void btt_raggiungibile_c_Click(object sender, EventArgs e)
-        {
-            if (gesore.raggiungibile(cmb_part_espl.SelectedIndex, cmb_arr_espl.SelectedIndex) < int.Parse(txt_fuel.Text))
-            {
-                MessageBox.Show("Raggiungibile con " + int.Parse(txt_fuel.Text));
-            }
-            else
-            {
-                MessageBox.Show("NON Raggiungibile con" + int.Parse(txt_fuel.Text));
-            }
-        }
-
+        // per capire se posso arriavre da nodo1 a nodo2
         private void btt_raggiungibile_Click(object sender, EventArgs e)
         {
-            if (gesore.raggiungibile(cmb_part_espl.SelectedIndex, cmb_arr_espl.SelectedIndex) < int.MaxValue)
+            if (gesore.Raggiungibile(cmb_part_espl.SelectedIndex, cmb_arr_espl.SelectedIndex) <= int.MaxValue)
             {
                 MessageBox.Show("Raggiungibile");
             }
             else
             {
-                MessageBox.Show("NON Raggiungibile");
+                MessageBox.Show("Non raggiungibile");
             }
         }
+
+        private void p_Paint(object sender, PaintEventArgs e) {} // qui per sicurezza lascio la firma o mi sa che esplode tutto
+
+        // per capire se con le unita di carburante inserite dall'utente posso arriavre da nodo1 a nodo2
+        private void btt_raggiungibile_c_Click(object sender, EventArgs e)
+        {
+            if (gesore.Raggiungibile(cmb_part_espl.SelectedIndex, cmb_arr_espl.SelectedIndex) <= int.Parse(txt_fuel.Text))
+            {
+                MessageBox.Show("Raggiungibile con " + int.Parse(txt_fuel.Text));
+            }
+            else
+            {
+                MessageBox.Show("Non raggiungibile con " + int.Parse(txt_fuel.Text));
+            }
+        }
+
+
     }
 }

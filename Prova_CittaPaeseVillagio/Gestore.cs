@@ -17,12 +17,14 @@ namespace Prova_CittaPaeseVillagio
             Nodi = new List<Nodo>();
         }
 
+        // get di nodi to array
         public Nodo[] arrNodi  
         { 
             get { return Nodi.ToArray(); }
         }
 
-        public int findPos(Nodo nodo) 
+        // trova la posizione del nodo passato trammite l'ID e la ritorna
+        public int FindPosizione(Nodo nodo) 
         {
             for (int i = 0; i < Nodi.Count; i++)
             {
@@ -35,41 +37,55 @@ namespace Prova_CittaPaeseVillagio
         }
 
         // passa nodo e aggiungi la lista
-        public void Add_Nodo(Nodo nodo)
+        public void AddNodo(Nodo nodo)
         {
             Nodi.Add(nodo);
         }
         // crea nodo e aggiungi alla lista
-        public void Add_Nodo(string nome,int numeroAbitanti)
+        public void AddNodo(string nome,int numeroAbitanti)
         {
             Nodi.Add(new Nodo(nome, numeroAbitanti));
         }
-
-        // aggiunge 
-        public void Add_Arco_bi(int nodoPartenza, int nodoArrivo, int metrica)
-        {
-            Add_Arco(nodoArrivo, nodoPartenza, metrica);
-            Add_Arco(nodoPartenza, nodoArrivo, metrica);
-        }
-
-        public void Add_Arco(int partenza, int arrivo, int metrica)
+        // crea arco e aggiungi alla lista del nodo in posizione "partenza"
+        public void AddArco(int partenza, int arrivo, int metrica)
         {
             Arco arco = new Arco(Nodi[arrivo], metrica);
-            Nodi[partenza].add_arco(arco);
+            Nodi[partenza].AddArco(arco);
+        }
+
+        // aggiunge un arco bidirezionale (da nodo1 a nodo 2 e viceversa)
+        public void AddArcoBidirezionale(int nodoPartenza, int nodoArrivo, int metrica)
+        {
+            // Controlla se esiste già un arco tra i due nodi, per sicurezza l'ho fatto 2 volte ma non servirebbe
+            bool esisteArco1 = Nodi[nodoPartenza].Archi.Any(a => a.Next ==   Nodi[nodoArrivo]);
+            bool esisteArco2 = Nodi[nodoArrivo].Archi.Any(a => a.Next == Nodi[nodoPartenza]);
+
+            if (!esisteArco1 && !esisteArco2)
+            {
+                AddArco(nodoArrivo, nodoPartenza, metrica);
+                AddArco(nodoPartenza, nodoArrivo, metrica);
+            }
+            else 
+            {
+                MessageBox.Show("percorso gia' esistente");
+            }
         }
 
 
+        // stampa utilizzata 
         public string stampaNodi()
         {
             string s = "";
+
             for (int i = 0; i < Nodi.Count; i++)
             {
-                s=s+Nodi[i].stampa();
+                s=s+Nodi[i].Stampa();
             }
+            
             return s;
         }
 
-        public int raggiungibile(int posizionePartenza,int posizioneFinale)
+        public int Raggiungibile(int posizionePartenza,int posizioneFinale)
         {
             bool[] percorsi = new bool[Nodi.Count];
             int[] metriche = new int[Nodi.Count];
@@ -84,12 +100,12 @@ namespace Prova_CittaPaeseVillagio
 
             metriche[posizionePartenza] = 0;
 
-            Nodi[posizionePartenza].raggiungibile(ref precedenti,Nodi.ToArray(),ref metriche,ref percorsi,posizionePartenza);
+            Nodi[posizionePartenza].Raggiunggibile(ref precedenti,Nodi.ToArray(),ref metriche,ref percorsi,posizionePartenza);
 
             return metriche[posizioneFinale];
         }
 
-        public string[] get_lista() 
+        public string[] GetLista() 
         {
             string[] nomi = new string[Nodi.Count];
 
@@ -101,38 +117,45 @@ namespace Prova_CittaPaeseVillagio
             return nomi;
         }
 
-        public string[,] get_matrice()
+        public int PersoneServiteDaMetropolitana(Nodo nodo)
         {
-            string[,] matrice = new string[Nodi.Count + 1, Nodi.Count + 1];
-            matrice[0, 0] = " ";
-            for (int i = 0; i < Nodi.Count(); i++)
+            int totale = 0;
+
+            foreach (Arco arco in nodo.Archi)
             {
-                matrice[0, i + 1] = Nodi[i].Nome;
-                matrice[i + 1, 0] = Nodi[i].Nome;
-                Nodi[i].matrice(matrice, i);
+                totale += arco.Next.NumeroAbitanti;
             }
-            stampa_matrice(matrice);
-            return matrice;
+
+            return totale;
         }
-        private void stampa_matrice(string[,] matrice)
+
+        public int PersoneServiteDaTreno(Nodo nodo)
         {
-            for (int i = 0; i < matrice.GetLength(0); i++)
+            HashSet<int> visitati = new HashSet<int>();
+            int totale = 0;
+
+            // Aggiungi i vicini diretti
+            foreach (Arco arco in nodo.Archi)
             {
-                for (int j = 0; j < matrice.GetLength(1); j++)
+                Nodo vicino = arco.Next;
+                if (visitati.Add(vicino.ID))
                 {
-                    if (matrice[i, j] == null)
+                    totale += vicino.NumeroAbitanti;
+
+                    // Aggiungi i vicini dei vicini
+                    foreach (Arco arco2 in vicino.Archi)
                     {
-                        Console.Write("   ");
-                    }
-                    else
-                    {
-                        Console.Write(" " + matrice[i, j] + " ");
+                        Nodo vicinoDelVicino = arco2.Next;
+                        if (visitati.Add(vicinoDelVicino.ID))
+                        {
+                            totale += vicinoDelVicino.NumeroAbitanti;
+                        }
                     }
                 }
-
-                Console.WriteLine();
-                Console.WriteLine();
             }
+
+            return totale;
         }
+
     }
 }
