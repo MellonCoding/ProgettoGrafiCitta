@@ -52,6 +52,8 @@
             cmb_part_espl = new ComboBox();
             cmb_arr_espl = new ComboBox();
             btt_raggiungibile_c = new Button();
+            prova01 = new Button();
+            prova00 = new TextBox();
             SuspendLayout();
             // 
             // p
@@ -281,12 +283,30 @@
             btt_raggiungibile_c.UseVisualStyleBackColor = true;
             btt_raggiungibile_c.Click += btt_raggiungibile_c_Click;
             // 
+            // prova01
+            // 
+            prova01.Location = new Point(86, 416);
+            prova01.Name = "prova01";
+            prova01.Size = new Size(75, 23);
+            prova01.TabIndex = 25;
+            prova01.Text = "button1";
+            prova01.UseVisualStyleBackColor = true;
+            // 
+            // prova00
+            // 
+            prova00.Location = new Point(71, 387);
+            prova00.Name = "prova00";
+            prova00.Size = new Size(100, 23);
+            prova00.TabIndex = 26;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.SpringGreen;
             ClientSize = new Size(1146, 637);
+            Controls.Add(prova00);
+            Controls.Add(prova01);
             Controls.Add(btt_raggiungibile_c);
             Controls.Add(label6);
             Controls.Add(label7);
@@ -345,5 +365,7 @@
         private ComboBox cmb_part_espl;
         private ComboBox cmb_arr_espl;
         private Button btt_raggiungibile_c;
+        private Button prova01;
+        private TextBox prova00;
     }
 }

@@ -166,5 +166,7 @@ namespace Prova_CittaPaeseVillagio
                 MessageBox.Show("Non raggiungibile con " + int.Parse(txt_fuel.Text));
             }
         }
+
+
     }
 }

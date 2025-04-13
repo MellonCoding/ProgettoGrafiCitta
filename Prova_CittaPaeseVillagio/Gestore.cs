@@ -116,5 +116,46 @@ namespace Prova_CittaPaeseVillagio
 
             return nomi;
         }
+
+        public int PersoneServiteDaMetropolitana(Nodo nodo)
+        {
+            int totale = 0;
+
+            foreach (Arco arco in nodo.Archi)
+            {
+                totale += arco.Next.NumeroAbitanti;
+            }
+
+            return totale;
+        }
+
+        public int PersoneServiteDaTreno(Nodo nodo)
+        {
+            HashSet<int> visitati = new HashSet<int>();
+            int totale = 0;
+
+            // Aggiungi i vicini diretti
+            foreach (Arco arco in nodo.Archi)
+            {
+                Nodo vicino = arco.Next;
+                if (visitati.Add(vicino.ID))
+                {
+                    totale += vicino.NumeroAbitanti;
+
+                    // Aggiungi i vicini dei vicini
+                    foreach (Arco arco2 in vicino.Archi)
+                    {
+                        Nodo vicinoDelVicino = arco2.Next;
+                        if (visitati.Add(vicinoDelVicino.ID))
+                        {
+                            totale += vicinoDelVicino.NumeroAbitanti;
+                        }
+                    }
+                }
+            }
+
+            return totale;
+        }
+
     }
 }

@@ -38,6 +38,8 @@ namespace Prova_CittaPaeseVillagio
         public int ID { get { return id; } }
         public string Nome { get { return nome; } }
         public Arco[] Archi { get { return archi.ToArray(); } }
+        public int NumeroAbitanti { get { return numero_ab; } }
+
 
         // crea arco e aggiungi alla lista
         public void AddArco(Nodo nx, int metrica)
