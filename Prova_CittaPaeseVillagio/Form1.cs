@@ -106,7 +106,7 @@ namespace Prova_CittaPaeseVillagio
             }
 
             MessageBox.Show(gesore.stampaNodi());
-            
+
             g.DrawLine(pen, 1, 1, 50, 50);
 
             g.Clear(p.BackColor);
@@ -153,7 +153,7 @@ namespace Prova_CittaPaeseVillagio
             }
         }
 
-        private void p_Paint(object sender, PaintEventArgs e) {} // qui per sicurezza lascio la firma o mi sa che esplode tutto
+        private void p_Paint(object sender, PaintEventArgs e) { } // qui per sicurezza lascio la firma o mi sa che esplode tutto
 
         // per capire se con le unita di carburante inserite dall'utente posso arriavre da nodo1 a nodo2
         private void btt_raggiungibile_c_Click(object sender, EventArgs e)
@@ -168,6 +168,29 @@ namespace Prova_CittaPaeseVillagio
             }
         }
 
-
+        private void btn_metro_Click(object sender, EventArgs e)
+        {
+            if (cmb_mezzi.SelectedIndex >= 0)
+            {
+                int personeServite = gesore.PersoneServiteDaMetropolitana(gesore.arrNodi[cmb_mezzi.SelectedIndex]);
+                txt_metro.Text = personeServite.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Seleziona un nodo prima di verificare la disponibilità della metro.");
+            }
+        }
+        private void btn_treno_Click(object sender, EventArgs e)
+        {
+            if (cmb_mezzi.SelectedIndex >= 0)
+            {
+                int personeServite = gesore.PersoneServiteDaTreno(gesore.arrNodi[cmb_mezzi.SelectedIndex]);
+                txt_treno.Text = personeServite.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Seleziona un nodo prima di verificare la disponibilità del treno.");
+            }
+        }
     }
 }

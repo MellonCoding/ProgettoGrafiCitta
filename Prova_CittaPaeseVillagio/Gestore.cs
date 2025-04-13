@@ -156,8 +156,5 @@ namespace Prova_CittaPaeseVillagio
 
             return totale;
         }
-
-
-        // MELLON WAS HERE
     }
 }

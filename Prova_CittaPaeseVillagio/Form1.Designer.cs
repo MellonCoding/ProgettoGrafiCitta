@@ -341,6 +341,7 @@
             btn_metro.TabIndex = 30;
             btn_metro.Text = "disponibilita metro";
             btn_metro.UseVisualStyleBackColor = true;
+            btn_metro.Click += btn_metro_Click;
             // 
             // btn_treno
             // 
@@ -351,6 +352,7 @@
             btn_treno.TabIndex = 31;
             btn_treno.Text = "disponibilita treno";
             btn_treno.UseVisualStyleBackColor = true;
+            btn_treno.Click += btn_treno_Click;
             // 
             // Form1
             // 
