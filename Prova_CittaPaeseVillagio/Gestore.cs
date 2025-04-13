@@ -87,12 +87,13 @@ namespace Prova_CittaPaeseVillagio
 
         public int Raggiungibile(int posizionePartenza,int posizioneFinale)
         {
-            bool[] percorsi = new bool[Nodi.Count];
-            int[] metriche = new int[Nodi.Count];
+            int NC = Nodi.Count(); //cosi' non ricalcola
 
-            Nodo[] precedenti = new Nodo[Nodi.Count];
+            bool[] percorsi = new bool[NC];
+            int[] metriche = new int[NC];
+            Nodo[] precedenti = new Nodo[NC];
 
-            for (int i = 0; i < Nodi.Count; i++)
+            for (int i = 0; i < NC; i++)
             {
                 metriche[i] = int.MaxValue;
                 percorsi[i] = false;

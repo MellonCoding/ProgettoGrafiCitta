@@ -143,7 +143,7 @@ namespace Prova_CittaPaeseVillagio
         // per capire se posso arriavre da nodo1 a nodo2
         private void btt_raggiungibile_Click(object sender, EventArgs e)
         {
-            if (gesore.Raggiungibile(cmb_part_espl.SelectedIndex, cmb_arr_espl.SelectedIndex) <= int.MaxValue)
+            if (!(gesore.Raggiungibile(cmb_part_espl.SelectedIndex, cmb_arr_espl.SelectedIndex) >= int.MaxValue))
             {
                 MessageBox.Show("Raggiungibile");
             }
