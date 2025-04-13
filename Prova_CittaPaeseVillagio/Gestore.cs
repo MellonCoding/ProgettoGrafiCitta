@@ -57,7 +57,7 @@ namespace Prova_CittaPaeseVillagio
         public void AddArcoBidirezionale(int nodoPartenza, int nodoArrivo, int metrica)
         {
             // Controlla se esiste già un arco tra i due nodi, per sicurezza l'ho fatto 2 volte ma non servirebbe
-            bool esisteArco1 = Nodi[nodoPartenza].Archi.Any(a => a.Next == Nodi[nodoArrivo]);
+            bool esisteArco1 = Nodi[nodoPartenza].Archi.Any(a => a.Next ==   Nodi[nodoArrivo]);
             bool esisteArco2 = Nodi[nodoArrivo].Archi.Any(a => a.Next == Nodi[nodoPartenza]);
 
             if (!esisteArco1 && !esisteArco2)
