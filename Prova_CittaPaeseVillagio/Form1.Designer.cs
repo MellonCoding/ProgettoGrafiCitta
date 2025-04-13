@@ -52,8 +52,13 @@
             cmb_part_espl = new ComboBox();
             cmb_arr_espl = new ComboBox();
             btt_raggiungibile_c = new Button();
-            prova01 = new Button();
-            prova00 = new TextBox();
+            cmb_mezzi = new ComboBox();
+            txt_metro = new TextBox();
+            label8 = new Label();
+            label9 = new Label();
+            txt_treno = new TextBox();
+            btn_metro = new Button();
+            btn_treno = new Button();
             SuspendLayout();
             // 
             // p
@@ -283,21 +288,69 @@
             btt_raggiungibile_c.UseVisualStyleBackColor = true;
             btt_raggiungibile_c.Click += btt_raggiungibile_c_Click;
             // 
-            // prova01
+            // cmb_mezzi
             // 
-            prova01.Location = new Point(86, 416);
-            prova01.Name = "prova01";
-            prova01.Size = new Size(75, 23);
-            prova01.TabIndex = 25;
-            prova01.Text = "button1";
-            prova01.UseVisualStyleBackColor = true;
+            cmb_mezzi.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmb_mezzi.FormattingEnabled = true;
+            cmb_mezzi.Location = new Point(10, 421);
+            cmb_mezzi.Margin = new Padding(3, 2, 3, 2);
+            cmb_mezzi.Name = "cmb_mezzi";
+            cmb_mezzi.Size = new Size(224, 23);
+            cmb_mezzi.TabIndex = 25;
             // 
-            // prova00
+            // txt_metro
             // 
-            prova00.Location = new Point(71, 387);
-            prova00.Name = "prova00";
-            prova00.Size = new Size(100, 23);
-            prova00.TabIndex = 26;
+            txt_metro.Location = new Point(58, 448);
+            txt_metro.Margin = new Padding(3, 2, 3, 2);
+            txt_metro.Name = "txt_metro";
+            txt_metro.Size = new Size(176, 23);
+            txt_metro.TabIndex = 26;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(10, 451);
+            label8.Name = "label8";
+            label8.Size = new Size(42, 15);
+            label8.TabIndex = 27;
+            label8.Text = "metro:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(10, 504);
+            label9.Name = "label9";
+            label9.Size = new Size(38, 15);
+            label9.TabIndex = 29;
+            label9.Text = "treno:";
+            // 
+            // txt_treno
+            // 
+            txt_treno.Location = new Point(58, 501);
+            txt_treno.Margin = new Padding(3, 2, 3, 2);
+            txt_treno.Name = "txt_treno";
+            txt_treno.Size = new Size(176, 23);
+            txt_treno.TabIndex = 28;
+            // 
+            // btn_metro
+            // 
+            btn_metro.Location = new Point(10, 475);
+            btn_metro.Margin = new Padding(3, 2, 3, 2);
+            btn_metro.Name = "btn_metro";
+            btn_metro.Size = new Size(224, 22);
+            btn_metro.TabIndex = 30;
+            btn_metro.Text = "disponibilita metro";
+            btn_metro.UseVisualStyleBackColor = true;
+            // 
+            // btn_treno
+            // 
+            btn_treno.Location = new Point(10, 528);
+            btn_treno.Margin = new Padding(3, 2, 3, 2);
+            btn_treno.Name = "btn_treno";
+            btn_treno.Size = new Size(224, 22);
+            btn_treno.TabIndex = 31;
+            btn_treno.Text = "disponibilita treno";
+            btn_treno.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -305,8 +358,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.SpringGreen;
             ClientSize = new Size(1146, 637);
-            Controls.Add(prova00);
-            Controls.Add(prova01);
+            Controls.Add(btn_treno);
+            Controls.Add(btn_metro);
+            Controls.Add(label9);
+            Controls.Add(txt_treno);
+            Controls.Add(label8);
+            Controls.Add(txt_metro);
+            Controls.Add(cmb_mezzi);
             Controls.Add(btt_raggiungibile_c);
             Controls.Add(label6);
             Controls.Add(label7);
@@ -365,7 +423,12 @@
         private ComboBox cmb_part_espl;
         private ComboBox cmb_arr_espl;
         private Button btt_raggiungibile_c;
-        private Button prova01;
-        private TextBox prova00;
+        private ComboBox cmb_mezzi;
+        private TextBox txt_metro;
+        private Label label8;
+        private Label label9;
+        private TextBox txt_treno;
+        private Button btn_metro;
+        private Button btn_treno;
     }
 }

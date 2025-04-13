@@ -65,6 +65,7 @@ namespace Prova_CittaPaeseVillagio
             cmb_partenza.Items.Clear();
             cmb_arr_espl.Items.Clear();
             cmb_part_espl.Items.Clear();
+            cmb_mezzi.Items.Clear();
 
             for (int i = 0; i < nomi.Length; i++)
             {
@@ -72,7 +73,7 @@ namespace Prova_CittaPaeseVillagio
                 cmb_partenza.Items.Add(nomi[i]);
                 cmb_part_espl.Items.Add(nomi[i]);
                 cmb_arr_espl.Items.Add(nomi[i]);
-
+                cmb_mezzi.Items.Add(nomi[i]);
             }
         }
 
